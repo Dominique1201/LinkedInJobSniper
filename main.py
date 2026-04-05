@@ -337,7 +337,7 @@ def send_email(top_jobs: List[dict]):
     msg['Subject'] = subject
     msg['From'] = sender
     msg['To'] = receiver
-    msg.attach(MIMEText(html_body, 'html'))
+    msg.attach(MIMEText(html_body, 'html','utf-8'))
 
     try:
         with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
