@@ -337,7 +337,13 @@ def send_email(top_jobs: List[dict]):
     msg['Subject'] = subject
     msg['From'] = sender
     msg['To'] = receiver
-    msg.attach(MIMEText(html_body, 'html','utf-8'))
+    # 1. 先把 html_body 裡的搞怪符號換掉
+html_body = html_body.encode('utf-8', errors='ignore').decode('utf-8')
+html_body = html_body.replace('\xa0', ' ')
+
+# 2. 然後才把清理好的 html_body 塞進郵件裡
+msg.attach(MIMEText(html_body, 'html', 'utf-8'))
+  
 
     try:
         with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
