@@ -368,7 +368,7 @@ def main():
     # 1. Scraping
     df = pd.DataFrame()
     for location in LOCATION:
-        for search_term in SEARCH_TERMS:
+        for search_term in SEARCH_TERM:
             df = pd.concat([df,get_jobs_data(location,search_term)], ignore_index=True, sort=False)
     if df.empty:
         return
