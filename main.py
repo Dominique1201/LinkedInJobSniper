@@ -36,10 +36,43 @@ from pypdf import PdfReader
 load_dotenv()
 
 # Configuration
-SEARCH_TERMS = ["Data Engineer", "Software Developer at Fintech"]
+SEARCH_TERM = [
+    "Financial Analyst",
+    "FP&A Analyst",
+    "Finance Analyst",
+    "Commercial Finance Analyst",
+    "Finance Business Partner",
+    "Business Analyst Finance"
+]
 # SEARCH_TERM = "Software Engineer (Python, Java)"
-LOCATIONS = ["Shenzhen", "Hongkong", "Shanghai"]
-RESULT_LIMIT = 15
+LOCATION = [
+    # 🇹🇼 Taiwan
+    "Taipei",
+    "New Taipei",
+    "Hsinchu",
+
+    # 🇬🇧 UK (England + Scotland major cities)
+    "London",
+    "Manchester",
+    "Birmingham",
+    "Leeds",
+    "Edinburgh",
+    "Glasgow",
+
+    # 🇩🇪 Germany
+    "Berlin",
+    "Munich",
+    "Frankfurt",
+    "Hamburg",
+
+    # 🇳🇱 Netherlands
+    "Amsterdam",
+    "Rotterdam",
+    "Utrecht",
+    "The Hague"
+]
+
+RESULT_LIMIT = 30
 HOURS_OLD = 24
 PROXY_URL = os.getenv("PROXY_URL", None)
 RESUME = os.getenv("RESUME_TEXT", None)
