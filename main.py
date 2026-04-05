@@ -367,7 +367,7 @@ def send_email(top_jobs: List[dict]):
 def main():
     # 1. Scraping
     df = pd.DataFrame()
-    for location in LOCATIONS:
+    for location in LOCATION:
         for search_term in SEARCH_TERMS:
             df = pd.concat([df,get_jobs_data(location,search_term)], ignore_index=True, sort=False)
     if df.empty:
