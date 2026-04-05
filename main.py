@@ -46,10 +46,13 @@ SEARCH_TERM = [
 ]
 # SEARCH_TERM = "Software Engineer (Python, Java)"
 LOCATION = [
-    # 🇹🇼 Taiwan
-    "Taipei",
-    "New Taipei",
-    "Hsinchu",
+     # 🇬🇧 UK (England + Scotland major cities)
+    "London",
+    "Manchester",
+    "Birmingham",
+    "Leeds",
+    "Edinburgh",
+    "Glasgow",
 
 ]
 
