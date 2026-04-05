@@ -342,7 +342,7 @@ html_body = html_body.encode('utf-8', errors='ignore').decode('utf-8')
 html_body = html_body.replace('\xa0', ' ')
 
 # 2. 然後才把清理好的 html_body 塞進郵件裡
-msg.attach(MIMEText(html_body, 'html', 'utf-8'))
+    msg.attach(MIMEText(html_body, 'html', 'utf-8'))
   
 
     try:
