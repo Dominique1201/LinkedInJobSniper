@@ -333,19 +333,14 @@ def send_email(top_jobs: List[dict]):
         </html>
         """
 
-    msg = MIMEMultipart()
-   # 1. 處理主旨（標題）：強制轉碼並過濾掉特殊符號，防止 ASCII 報錯
-    clean_subject = subject.encode('utf-8', errors='ignore').decode('utf-8').replace('\xa0', ' ')
-    msg['Subject'] = clean_subject
-    msg['From'] = sender
-    msg['To'] = receiver
-
-        # 2. 處理內文：清理搞怪符號
-    clean_body = html_body.encode('utf-8', errors='ignore').decode('utf-8').replace('\xa0', ' ')
-
-        # 3. 附加內容
-    msg.attach(MIMEText(clean_body, 'html', 'utf-8'))
-  
+ msg = MIMEMultipart()
+        from email.header import Header
+        msg['Subject'] = Header(subject.replace('\xa0', ' '), 'utf-8')
+        msg['From'] = sender
+        msg['To'] = receiver
+        clean_body = html_body.replace('\xa0', ' ')
+        msg.attach(MIMEText(clean_body, 'html', 'utf-8'))
+        
     try:
         with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
             server.login(sender, password)
