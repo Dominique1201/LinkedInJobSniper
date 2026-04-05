@@ -290,56 +290,58 @@ def send_email(top_jobs: List[dict]):
 
     # HTML Email Template
     html_body = f"""
-        <html>
-        <body style="font-family: Arial, sans-serif;">
-            <h2 style="color: #2c3e50;">CareerScout Daily Report</h2>
-            <p>Found <b>{len(top_jobs)}</b> high-match positions for you today:</p>
-            <table style="border-collapse: collapse; width: 100%; max-width: 800px;">
-                <tr style="background-color: #f8f9fa; text-align: left;">
-                    <th style="padding: 10px; border-bottom: 2px solid #ddd;">Score</th>
-                    <th style="padding: 10px; border-bottom: 2px solid #ddd;">Title</th>
-                    <th style="padding: 10px; border-bottom: 2px solid #ddd;">Company</th>
-                    <th style="padding: 10px; border-bottom: 2px solid #ddd;">Years of Experience</th>
-                    <th style="padding: 10px; border-bottom: 2px solid #ddd;">Why Match?</th>
-                    <th style="padding: 10px; border-bottom: 2px solid #ddd;">Action</th>
-                </tr>
-        """
+    <html>
+    <body style="font-family: Arial, sans-serif;">
+        <h2 style="color: #2c3e50;">CareerScout Daily Report</h2>
+        <p>Found <b>{len(top_jobs)}</b> high-match positions for you today:</p>
+        <table style="border-collapse: collapse; width: 100%; max-width: 800px;">
+            <tr style="background-color: #f8f9fa; text-align: left;">
+                <th style="padding: 10px; border-bottom: 2px solid #ddd;">Score</th>
+                <th style="padding: 10px; border-bottom: 2px solid #ddd;">Title</th>
+                <th style="padding: 10px; border-bottom: 2px solid #ddd;">Company</th>
+                <th style="padding: 10px; border-bottom: 2px solid #ddd;">Years of Experience</th>
+                <th style="padding: 10px; border-bottom: 2px solid #ddd;">Why Match?</th>
+                <th style="padding: 10px; border-bottom: 2px solid #ddd;">Action</th>
+            </tr>
+    """
 
     for job in top_jobs:
         color = "#27ae60" if job['score'] >= 85 else "#d35400"
         html_body += f"""
-                <tr>
-                    <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold; color: {color};">
-                        {job['score']}
-                    </td>
-                    <td style="padding: 10px; border-bottom: 1px solid #eee;">{job['title']}</td>
-                    <td style="padding: 10px; border-bottom: 1px solid #eee;">{job['company']}</td>
-                    <td style="padding: 10px; border-bottom: 1px solid #eee;">{job['yoe']}</td>
-                    <td style="padding: 10px; border-bottom: 1px solid #eee; font-size: 14px; color: #555;">
-                        {job['reason']}
-                    </td>
-                    <td style="padding: 10px; border-bottom: 1px solid #eee;">
-                        <a href="{job['job_url']}" style="background-color: #007bff; color: white; padding: 5px 10px; text-decoration: none; border-radius: 4px; font-size: 12px;">Apply</a>
-                    </td>
-                </tr>
-            """
-
-    html_body += """
-            </table>
-            <p style="margin-top: 20px; font-size: 12px; color: #888;">
-                Powered by CareerScout-Agent using LangChain & Python.
-            </p>
-        </body>
-        </html>
+            <tr>
+                <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold; color: {color};">
+                    {job['score']}
+                </td>
+                <td style="padding: 10px; border-bottom: 1px solid #eee;">{job['title']}</td>
+                <td style="padding: 10px; border-bottom: 1px solid #eee;">{job['company']}</td>
+                <td style="padding: 10px; border-bottom: 1px solid #eee;">{job['yoe']}</td>
+                <td style="padding: 10px; border-bottom: 1px solid #eee; font-size: 14px; color: #555;">
+                    {job['reason']}
+                </td>
+                <td style="padding: 10px; border-bottom: 1px solid #eee;">
+                    <a href="{job['job_url']}" style="background-color: #007bff; color: white; padding: 5px 10px; text-decoration: none; border-radius: 4px; font-size: 12px;">Apply</a>
+                </td>
+            </tr>
         """
 
-     msg = MIMEMultipart()
-        from email.header import Header
-        msg['Subject'] = Header(subject.replace('\xa0', ' '), 'utf-8')
-        msg['From'] = sender
-        msg['To'] = receiver
-        clean_body = html_body.replace('\xa0', ' ')
-        msg.attach(MIMEText(clean_body, 'html', 'utf-8'))
+    html_body += """
+        </table>
+        <p style="margin-top: 20px; font-size: 12px; color: #888;">
+            Powered by CareerScout-Agent using LangChain & Python.
+        </p>
+    </body>
+    </html>
+    """
+
+    # 這裡就是剛才一直出錯的地方，我們用最標準的縮排寫好
+    from email.header import Header
+    msg = MIMEMultipart()
+    msg['Subject'] = Header(subject.replace('\xa0', ' '), 'utf-8')
+    msg['From'] = sender
+    msg['To'] = receiver
+    
+    clean_body = html_body.replace('\xa0', ' ')
+    msg.attach(MIMEText(clean_body, 'html', 'utf-8'))
         
     try:
         with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
