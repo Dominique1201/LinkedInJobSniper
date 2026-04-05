@@ -333,7 +333,7 @@ def send_email(top_jobs: List[dict]):
         </html>
         """
 
- msg = MIMEMultipart()
+     msg = MIMEMultipart()
         from email.header import Header
         msg['Subject'] = Header(subject.replace('\xa0', ' '), 'utf-8')
         msg['From'] = sender
