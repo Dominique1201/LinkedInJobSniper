@@ -51,28 +51,9 @@ LOCATION = [
     "New Taipei",
     "Hsinchu",
 
-    # 🇬🇧 UK (England + Scotland major cities)
-    "London",
-    "Manchester",
-    "Birmingham",
-    "Leeds",
-    "Edinburgh",
-    "Glasgow",
-
-    # 🇩🇪 Germany
-    "Berlin",
-    "Munich",
-    "Frankfurt",
-    "Hamburg",
-
-    # 🇳🇱 Netherlands
-    "Amsterdam",
-    "Rotterdam",
-    "Utrecht",
-    "The Hague"
 ]
 
-RESULT_LIMIT = 30
+RESULT_LIMIT = 5
 HOURS_OLD = 24
 PROXY_URL = os.getenv("PROXY_URL", None)
 RESUME = os.getenv("RESUME_TEXT", None)
