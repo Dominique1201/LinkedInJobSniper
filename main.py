@@ -336,12 +336,12 @@ def send_email(top_jobs: List[dict]):
     # 這裡就是剛才一直出錯的地方，我們用最標準的縮排寫好
     from email.header import Header
     msg = MIMEMultipart()
-    msg['Subject'] = Header(subject.replace('\xa0', ' '), 'utf-8')
+    msg['Subject'] = Header(subject.encode('utf-8'), 'utf-8')
     msg['From'] = sender
     msg['To'] = receiver
     
     clean_body = html_body.replace('\xa0', ' ')
-    msg.attach(MIMEText(clean_body, 'html', 'utf-8'))
+    msg.attach(MIMEText(clean_body.encode('utf-8'), 'html', 'utf-8')
         
     try:
         with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
